@@ -84,74 +84,74 @@ void Worm::upDate()
 	switch (this->state)
 	{
 		case START_MOVING_LEFT: case START_MOVING_RIGHT:
-		if (frameCounter < 5)
-			frameCounter++;
-		else
-		{
-			this->state = this->state == START_MOVING_LEFT ? MOVE_LEFT : MOVE_RIGHT;
-			frameCounter++;
-			bitmapIndex = frameCounter - 5;
-		}
+			if (frameCounter < 5)
+				frameCounter++;
+			else
+			{
+				this->state = this->state == START_MOVING_LEFT ? MOVE_LEFT : MOVE_RIGHT;
+				frameCounter++;
+				bitmapIndex = frameCounter - 5;
+			}
 		break;
 
 		case MOVE_LEFT: case STOP_MOVING_LEFT: case MOVE_RIGHT: case STOP_MOVING_RIGHT:
-		if (frameCounter < 8) 
-		{
-			frameCounter++;
-			bitmapIndex = frameCounter - 5;
-		}
-		else if (frameCounter >= 8 && frameCounter < 16 )
-		{
-			frameCounter++;
-			bitmapIndex = frameCounter - 5 ;
-		}
-		else if (frameCounter >= 16  && frameCounter < 21 )
-		{
-			frameCounter++;
-			bitmapIndex = frameCounter - 6;
-		}
-		else              //llegue al F14 de la repeticion
-		{    
-			bitmapIndex = 4;
-			frameCounter++;
-			if (this->state == MOVE_LEFT || this->state == STOP_MOVING_LEFT)
+			if (frameCounter < 8) 
 			{
-				pos.x -= 9;
-				if(!inRange(pos))//Si esta fuera de ranfo lo dejo como estaba 
-				{
-					pos.x += 9;
-				}
+				frameCounter++;
+				bitmapIndex = frameCounter - 5;
 			}
-			else if (this->state == MOVE_RIGHT || this->state == STOP_MOVING_RIGHT)
+			else if (frameCounter >= 8 && frameCounter < 16 )
 			{
-				pos.x += 9;
-				if (!inRange(pos))//Si esta fuera de ranfo lo dejo como estaba 
+				frameCounter++;
+				bitmapIndex = frameCounter - 5 ;
+			}
+			else if (frameCounter >= 16  && frameCounter < 21 )
+			{
+				frameCounter++;
+				bitmapIndex = frameCounter - 6;
+			}
+			else              //llegue al F14 de la repeticion
+			{    
+				bitmapIndex = 4;
+				frameCounter++;
+				if (this->state == MOVE_LEFT || this->state == STOP_MOVING_LEFT)
 				{
 					pos.x -= 9;
+					if(!inRange(pos))//Si esta fuera de ranfo lo dejo como estaba 
+					{
+						pos.x += 9;
+					}
 				}
-			}
-
-			movementRepetitons++;
-
-			if (movementRepetitons == MAX_MOVEMENT_REPETITIONS)
-			{	//termine todo el movimiento (hasta la rep 3) esto lo tiene que terminar si o si
-				movementRepetitons = 0;
-				frameCounter = 0;
-				if (this->state == STOP_MOVING_LEFT || this->state == STOP_MOVING_RIGHT)
+				else if (this->state == MOVE_RIGHT || this->state == STOP_MOVING_RIGHT)
 				{
-					this->state = IDLE;
+					pos.x += 9;
+					if (!inRange(pos))//Si esta fuera de ranfo lo dejo como estaba 
+					{
+						pos.x -= 9;
+					}
 				}
-				else if (this->state == MOVE_LEFT || this->state == MOVE_RIGHT)
-				{
-					this->state = this->state == MOVE_LEFT ? START_MOVING_LEFT : START_MOVING_RIGHT;
+
+				movementRepetitons++;
+
+				if (movementRepetitons == MAX_MOVEMENT_REPETITIONS)
+				{	//termine todo el movimiento (hasta la rep 3) esto lo tiene que terminar si o si
+					movementRepetitons = 0;
 					frameCounter = 0;
+					if (this->state == STOP_MOVING_LEFT || this->state == STOP_MOVING_RIGHT)
+					{
+						this->state = IDLE;
+					}
+					else if (this->state == MOVE_LEFT || this->state == MOVE_RIGHT)
+					{
+						this->state = this->state == MOVE_LEFT ? START_MOVING_LEFT : START_MOVING_RIGHT;
+						frameCounter = 0;
+					}
 				}
-			}
-			else
-			{
-				frameCounter = 8;   // 8 o 9?
-			}
-		}				
+				else
+				{
+					frameCounter = 8;   // 8 o 9?
+				}
+			}				
 		break;
 
 		case START_JUMPING:
@@ -203,13 +203,17 @@ void Worm::upDate()
 			else //Si ya dejo de saltar
 			{
 				bitmapIndex++; //Llega en 5 lo paso a 6, 7...
-				if(bitmapIndex > 10)//Si ya pase por los dibujos 6 - 7 - 8 - 9 - 10
+				if(bitmapIndex > 10 || (bitmapIndex == 2) )//Si ya pase por los dibujos 6 - 7 - 8 - 9 - 10 - 1
 				{
-					this->state = IDLE; 
-					frameCounter = 0; //Lo dejamos en 10 
+					if (bitmapIndex == 2)
+					{
+						this->state = IDLE;
+						frameCounter = 0; //Lo dejamos en 10 
+					}
+					bitmapIndex = 1;
 				}
 			}
-			break;
+		break;
 	}
 }
 

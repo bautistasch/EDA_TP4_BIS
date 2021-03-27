@@ -62,7 +62,6 @@ void World::refresh(void)
 {
 	worms[0].upDate();
 	//worms[1].uptdate();
-	//drawWorld(&world);         // HOW TODO
 }
 
 bool World::running(void)

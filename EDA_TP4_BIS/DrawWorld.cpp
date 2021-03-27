@@ -197,7 +197,7 @@ void drawWorld(World * world)
 {
 	al_clear_to_color(al_color_name("blue"));
 	
-	//drawBackground();
+	drawBackground();
 	drawWorms(world);
 	al_flip_display();
 }
@@ -230,7 +230,7 @@ static void drawWorms(World * world) {
 					al_draw_bitmap(wormWalk[0], allPos.x, allPos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
 					//std::cout << "START_MOVING_LEFT" << std::endl;
 				}
-				else if (world->worms[i].frameCounter > 5   )
+				else if (world->worms[i].frameCounter > 5 )
 				{
 					Point allPos = posToAll( world->worms[i].pos, al_get_bitmap_width(wormWalk[world->worms[i].bitmapIndex - 1]), al_get_bitmap_width(wormWalk[world->worms[i].bitmapIndex - 1]));
 					al_draw_bitmap(wormWalk[world->worms[i].bitmapIndex - 1 ], allPos.x, allPos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
@@ -254,6 +254,7 @@ static void drawWorms(World * world) {
 		}
 	}
 }
+
 static Point posToAll(Point pos, unsigned int width, unsigned int height) {
 
 	//pos.y = height;
