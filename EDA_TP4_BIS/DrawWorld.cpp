@@ -196,7 +196,8 @@ void destroyWorld(int error)
 void drawWorld(World * world)
 {
 	al_clear_to_color(al_color_name("blue"));
-	drawBackground();
+	
+	//drawBackground();
 	drawWorms(world);
 	al_flip_display();
 }
@@ -204,7 +205,7 @@ void drawWorld(World * world)
 
 bool inRange(Point& point)   // ASUMIENDO QUE LOS BITMAPS PUEDEN TENER DIFERENTES SIZES
 {
-	if (point.x > 701 && (point.x + al_get_bitmap_width(wormWalk[14])) < 1212)   // FIX
+	if ((point.x > 700) && (point.x < 1212))   // FIX
 		return true;
 	else
 		return false;

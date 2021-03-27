@@ -111,34 +111,32 @@ void Worm::upDate()
 			bitmapIndex = frameCounter - 6;
 		}
 		else              //llegue al F14 de la repeticion
-		{            
-			//(state == MOVE_LEFT) ? pos.x -= 9 : pos.x += 9;
-			//mover 9 pixeles pos.x+=9 ; --> FIJARME SI ES MOVE RIGHT O LEFT
-
+		{    
 			bitmapIndex = 4;
 			frameCounter++;
 			if (this->state == MOVE_LEFT || this->state == STOP_MOVING_LEFT)
 			{
-				Point point = pos;
-				point.x -= 9;
-				//if(inRange(pos))
-					pos.x -= 9;
+				pos.x -= 9;
+				if(!inRange(pos))//Si esta fuera de ranfo lo dejo como estaba 
+				{
+					pos.x += 9;
+				}
 			}
 			else if (this->state == MOVE_RIGHT || this->state == STOP_MOVING_RIGHT)
 			{
-				Point point = pos;
-				point.x += 9;
-				//if (inRange(pos))
-					pos.x += 9;
+				pos.x += 9;
+				if (!inRange(pos))//Si esta fuera de ranfo lo dejo como estaba 
+				{
+					pos.x -= 9;
+				}
 			}
 
 			movementRepetitons++;
 
 			if (movementRepetitons == MAX_MOVEMENT_REPETITIONS)
-			{					//termine todo el movimiento (hasta la rep 3) esto lo tiene que terminar si o si
+			{	//termine todo el movimiento (hasta la rep 3) esto lo tiene que terminar si o si
 				movementRepetitons = 0;
 				frameCounter = 0;
-				//(state == MOVE_LEFT) ? (this->state = STOP_MOVING_LEFT) : (this->state = STOP_MOVING_RIGHT);
 				if (this->state == STOP_MOVING_LEFT || this->state == STOP_MOVING_RIGHT)
 				{
 					this->state = IDLE;
@@ -155,6 +153,7 @@ void Worm::upDate()
 			}
 		}				
 		break;
+
 		case START_JUMPING:
 			if (frameCounter < 4)
 			{
@@ -168,6 +167,7 @@ void Worm::upDate()
 				bitmapIndex++;
 			}
 		break;
+
 		case JUMPING:
 			if(frameCounter == 5 || onAir(&this->pos) ) 
 			{
@@ -177,14 +177,26 @@ void Worm::upDate()
 					this->pos.x += 4.5 * cos(60 * PI / 180.0);//Ecuacion de salto
 					this->pos.y -= (4.5 * sin(60 * PI / 180.0)*jumpTime - 0.24 * jumpTime * jumpTime  );
 					if (this->pos.y > 616)
+					{
 						this->pos.y = 616;
+					}
+					if (!inRange(pos))
+					{
+						this->pos.x -= 4.5 * cos(60 * PI / 180.0);
+					}
 				}        
 				else if(direction == LEFT)
 				{
 					this->pos.x -= 4.5 * cos(60 * PI / 180.0);//Ecuacion de salto
 					this->pos.y -= (4.5 * sin(60 * PI / 180.0)*jumpTime - 0.24 * jumpTime * jumpTime );
 					if (this->pos.y > 616)
+					{
 						this->pos.y = 616;
+					}
+					if (!inRange(pos))
+					{
+						this->pos.x += 4.5 * cos(60 * PI / 180.0);
+					}
 				}
 				frameCounter++;
 			}
