@@ -14,4 +14,115 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="allegro.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DrawWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pinguino.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Scenario.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wjump-F10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wwalk-F15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
