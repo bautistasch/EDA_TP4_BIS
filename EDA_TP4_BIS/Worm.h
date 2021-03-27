@@ -21,6 +21,7 @@ public:
 	states_t state;
 	unsigned int frameCounter;
 	direction_t direction;
+	Point pos;
 
 	void startMovingRight(void);
 	void startMovingLeft(void);
@@ -29,7 +30,7 @@ public:
 	void startJumping(void);
 	void stopJumping(void);
 	void upDate(void);
-	Point pos;
+	
 private:
 	int movementRepetitons;
 };

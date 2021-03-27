@@ -43,11 +43,9 @@ int main()
 
 	while (myWorld.running())
 	{
-	//	if ( isEvent())
-	//	{
-			dispatch(&myWorld);
-	//	}
+		dispatch(&myWorld);
 	}
+	return 1;
 }
 
 
