@@ -61,7 +61,7 @@ void World::stopMoving(int key)
 void World::refresh(void)
 {
 	worms[0].upDate();
-	//worms[1].uptdate();
+	worms[1].upDate();
 }
 
 bool World::running(void)

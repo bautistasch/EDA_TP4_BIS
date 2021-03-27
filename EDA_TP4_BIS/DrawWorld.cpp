@@ -10,6 +10,7 @@
 
 #include <allegro5/allegro_color.h>    // <------- PARA PROBAR EL RADIO DE BUSQUEDA
 
+#include <chrono>
 
 using namespace std;
 
@@ -95,6 +96,14 @@ bool initWorld()
 
 	int error = 0;
 
+	display = al_create_display(1920, 696);
+	if (display == NULL)
+	{
+		error = 5;
+		destroyWorld(error);
+		return false;
+	}
+
 	for (int i = 0; i < 10; i++)
 	{
 		wormJump[i] = al_load_bitmap(jumpImgs[i]);
@@ -136,14 +145,6 @@ bool initWorld()
 	if (backSplash == NULL)
 	{
 		error = 3;
-		destroyWorld(error);
-		return false;
-	}
-
-	display = al_create_display(al_get_bitmap_width(backSplash), al_get_bitmap_height(backSplash));
-	if (display == NULL)
-	{
-		error = 5;
 		destroyWorld(error);
 		return false;
 	}
@@ -197,7 +198,15 @@ void drawWorld(World * world)
 {
 	al_clear_to_color(al_color_name("blue"));
 	
+	
+	auto start = std::chrono::system_clock::now();
+
 	drawBackground();
+
+	auto end = std::chrono::system_clock::now();
+	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+	std::cout << elapsed.count() << '\n';
+
 	drawWorms(world);
 	al_flip_display();
 }
@@ -218,7 +227,7 @@ static void drawBackground() {
 }
 
 static void drawWorms(World * world) {
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		if (world->worms[i].state != IDLE)
 		{

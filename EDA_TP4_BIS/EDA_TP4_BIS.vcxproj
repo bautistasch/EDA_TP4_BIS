@@ -177,6 +177,7 @@
     <Image Include="wwalk-F9.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DrawWorld.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="Worm.h" />

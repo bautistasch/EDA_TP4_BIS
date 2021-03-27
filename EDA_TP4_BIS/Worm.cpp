@@ -175,7 +175,7 @@ void Worm::upDate()
 				if (direction == RIGHT)
 				{
 					this->pos.x += 4.5 * cos(60 * PI / 180.0);//Ecuacion de salto
-					this->pos.y -= (4.5 * sin(60 * PI / 180.0)*jumpTime - 0.24 * jumpTime * jumpTime  );
+					this->pos.y -= (4.5 * sin(60 * PI / 180.0)*jumpTime - 0.35 * jumpTime * jumpTime  );
 					if (this->pos.y > 616)
 					{
 						this->pos.y = 616;
@@ -188,7 +188,7 @@ void Worm::upDate()
 				else if(direction == LEFT)
 				{
 					this->pos.x -= 4.5 * cos(60 * PI / 180.0);//Ecuacion de salto
-					this->pos.y -= (4.5 * sin(60 * PI / 180.0)*jumpTime - 0.24 * jumpTime * jumpTime );
+					this->pos.y -= (4.5 * sin(60 * PI / 180.0)*jumpTime - 0.35 * jumpTime * jumpTime );
 					if (this->pos.y > 616)
 					{
 						this->pos.y = 616;

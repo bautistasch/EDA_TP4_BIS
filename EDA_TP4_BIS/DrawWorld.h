@@ -2,7 +2,8 @@
 #define _DRAWWORLD_H
 #include "World.h"
 
-#define FPS 50.0			//Frames por segundo de muestra
+
+#define FPS 60.0			//Frames por segundo de muestra
 
 
 

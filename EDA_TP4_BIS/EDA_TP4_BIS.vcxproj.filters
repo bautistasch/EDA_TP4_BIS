@@ -124,5 +124,8 @@
     <ClInclude Include="Worm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DrawWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
