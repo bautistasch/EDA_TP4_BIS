@@ -165,6 +165,7 @@ void Worm::upDate()
 				this->state = JUMPING;
 				frameCounter++;
 				bitmapIndex++;
+				setInitPos();
 			}
 		break;
 
@@ -175,7 +176,7 @@ void Worm::upDate()
 				if (direction == RIGHT)
 				{
 					this->pos.x += 4.5 * cos(60 * PI / 180.0);//Ecuacion de salto
-					this->pos.y -= (4.5 * sin(60 * PI / 180.0)*jumpTime - 0.35 * jumpTime * jumpTime  );
+					this->pos.y -= (4.5 * sin(60 * PI / 180.0) - 0.12 * jumpTime * jumpTime  );
 					if (this->pos.y > 616)
 					{
 						this->pos.y = 616;
@@ -188,7 +189,7 @@ void Worm::upDate()
 				else if(direction == LEFT)
 				{
 					this->pos.x -= 4.5 * cos(60 * PI / 180.0);//Ecuacion de salto
-					this->pos.y -= (4.5 * sin(60 * PI / 180.0)*jumpTime - 0.35 * jumpTime * jumpTime );
+					this->pos.y -= (4.5 * sin(60 * PI / 180.0) - 0.12 * jumpTime * jumpTime );
 					if (this->pos.y > 616)
 					{
 						this->pos.y = 616;
@@ -226,6 +227,21 @@ bool onAir(Point* pos)
 	}
 	return false;
 }
+
+void Worm::setInitPos(void)
+{
+	initialPos = pos;
+}
+float Worm::get_X_InitPos(void)
+{
+	return initialPos.x;
+}
+float Worm::get_Y_initPos(void)
+{
+	return initialPos.y;
+}
+
+
 //
 //void Worm::uptdate(void) {
 //	static int rep = 0;

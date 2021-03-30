@@ -214,7 +214,7 @@ void drawWorld(World * world)
 
 bool inRange(Point& point)   // ASUMIENDO QUE LOS BITMAPS PUEDEN TENER DIFERENTES SIZES
 {
-	if ((point.x > 700) && (point.x < 1212))   // FIX
+	if ((point.x > 701) && (point.x < 1212))   // FIX
 		return true;
 	else
 		return false;

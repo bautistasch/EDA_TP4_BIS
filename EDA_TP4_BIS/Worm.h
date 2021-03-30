@@ -30,9 +30,12 @@ public:
 	void startJumping(void);
 	void stopJumping(void);
 	void upDate(void);
-	
+	void setInitPos(void);
+	float get_X_InitPos(void);
+	float get_Y_initPos(void);
 private:
 	int movementRepetitons;
+	Point initialPos;
 };
 
 #endif // _WORM_H
