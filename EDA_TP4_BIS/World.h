@@ -9,7 +9,6 @@ public:
 	Worm worms[2];
 	void startMoving(int key);
 	void stopMoving(int key);
-	bool running(void);
 	void refresh(void);
 	bool isRunning;
 };

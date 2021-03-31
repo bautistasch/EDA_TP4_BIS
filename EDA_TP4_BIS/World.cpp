@@ -64,11 +64,6 @@ void World::refresh(void)
 	worms[1].upDate();
 }
 
-bool World::running(void)
-{
-	return isRunning;
-}
-
 World::World()
 {
 	isRunning = true;

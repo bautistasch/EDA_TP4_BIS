@@ -5,7 +5,6 @@
 #include <cmath>
 
 #define PI 3.14159265
-bool onAir(Point* pos);
 void Worm::startMovingLeft(void) // tecla d presionada
 {
 	if (this->state == IDLE ) //arranco a apretar la flecha
@@ -165,7 +164,6 @@ void Worm::upDate()
 				this->state = JUMPING;
 				frameCounter++;
 				bitmapIndex++;
-				setInitPos();
 			}
 		break;
 
@@ -218,8 +216,7 @@ void Worm::upDate()
 	}
 }
 
-
-bool onAir(Point* pos)
+bool Worm::onAir(Point* pos)
 {
 	if (pos->y < 616)
 	{
@@ -228,90 +225,11 @@ bool onAir(Point* pos)
 	return false;
 }
 
-void Worm::setInitPos(void)
+bool Worm::inRange(Point& point)   
 {
-	initialPos = pos;
+	if ((point.x > 680) && (point.x < 1175))   
+		return true;
+	else
+		return false;
+
 }
-float Worm::get_X_InitPos(void)
-{
-	return initialPos.x;
-}
-float Worm::get_Y_initPos(void)
-{
-	return initialPos.y;
-}
-
-
-//
-//void Worm::uptdate(void) {
-//	static int rep = 0;
-//	switch (state)
-//	{
-//		case START_MOVING_LEFT:
-//			if (frameCounter < 5)
-//				frameCounter++;
-//			else
-//				this->state = MOVE_LEFT;
-//			break;
-//
-//		//case START_MOVING_RIGHT:
-//		//	if (frameCounter < 5)
-//		//		frameCounter++;
-//		//	else
-//		//		this->state = MOVE_RIGHT;
-//		//	break;
-//
-//		case MOVE_LEFT:
-//		//case MOVE_RIGHT:
-//			if (frameCounter < 8) {
-//				bitmapIndex = frameCounter - 4;
-//				frameCounter++;
-//			}
-//			else if (frameCounter < (16 + FRAMES_PER_REP * rep)) {
-//				bitmapIndex = frameCounter - 4 - FRAMES_PER_REP * rep;
-//				frameCounter++;
-//			}
-//			else if (frameCounter == (16 + FRAMES_PER_REP * rep)) {
-//				bitmapIndex = 11;
-//				frameCounter++;
-//			}
-//			else if (frameCounter < (21 + FRAMES_PER_REP * rep)) {
-//				bitmapIndex = frameCounter - 6 - FRAMES_PER_REP * rep;
-//				frameCounter++;
-//			}
-//			else {							//llegue al F14 de la repeticion
-//				if (rep < 2){
-//					(state == MOVE_LEFT) ? pos.x-=9 : pos.x+=9;
-//					//mover 9 pixeles pos.x+=9 ; --> FIJARME SI ES MOVE RIGHT O LEFT
-//					bitmapIndex = 4;
-//					frameCounter++;
-//					rep++;
-//				}
-//				else{						//termine todo el movimiento (hasta la rep 3) esto lo tiene que terminar si o si
-//					rep = 0;
-//					frameCounter = 0;
-//					(state == MOVE_LEFT) ? (this->state = STOP_MOVING_LEFT) : (this->state = STOP_MOVING_RIGHT);
-//				}
-//			}
-//			break;
-//	}
-//
-//}
-
-//acordarme inicializar frame counter constructor
-// si estaba en start_moving_left y dejo de tocar incializar frame counter denuevo
-
-
-/*																		frameCounter
-5 frames no hago nada													0 1 2 3 4
-3 frames --> 1 2 3														5 6 7
-
-14 frames --> 4 5 6 7 8 9 10 11 11 12 13 14 15 (desplazada 9 pixeles)4  8 9 10 11 12 13 14 15 16 17 18 19 20 21
-(15=4)
-
-4 5 6 7 8 9 10 11 11 12 13 14 15 (desplazada 9 pixeles)4				22 23 24 25 26 27 28 29 30 31 32 33 34 35
-
-4 5 6 7 8 9 10 11 11 12 13 14 15 (desplazada 9 pixeles)4				36 37 38 39 40 41 42 43 44 45 46 47 48 49
-
-en total desplazo 27 pixeles
-*/

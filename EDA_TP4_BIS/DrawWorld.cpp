@@ -2,16 +2,6 @@
 
 #include "DrawWorld.h"
 
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-
-#include <allegro5/allegro_color.h>    // <------- PARA PROBAR EL RADIO DE BUSQUEDA
-
-#include <chrono>
-
 using namespace std;
 
 #define SCENARIO		"Scenario.png"
@@ -27,17 +17,6 @@ using namespace std;
 #define JUMP_F9_IMG		"wjump-f9.png"
 #define JUMP_F10_IMG	"wjump-f10.png"
 
-const char* jumpImgs[] = { JUMP_F1_IMG,
-							JUMP_F2_IMG,
-							JUMP_F3_IMG,
-							JUMP_F4_IMG,
-							JUMP_F5_IMG,
-							JUMP_F6_IMG,
-							JUMP_F7_IMG,
-							JUMP_F8_IMG,
-							JUMP_F9_IMG,
-							JUMP_F10_IMG
-};
 
 #define WALK_F1_IMG		"wwalk-f1.png"
 #define WALK_F2_IMG		"wwalk-f2.png"
@@ -55,39 +34,39 @@ const char* jumpImgs[] = { JUMP_F1_IMG,
 #define WALK_F14_IMG	"wwalk-f14.png"
 #define WALK_F15_IMG	"wwalk-f15.png"
 
-const char* walkImgs[] = { WALK_F1_IMG,
-							WALK_F2_IMG,
-							WALK_F3_IMG,
-							WALK_F4_IMG,
-							WALK_F5_IMG,
-							WALK_F6_IMG,
-							WALK_F7_IMG,
-							WALK_F8_IMG,
-							WALK_F9_IMG,
-							WALK_F10_IMG,
-							WALK_F11_IMG,
-							WALK_F12_IMG,
-							WALK_F13_IMG,
-							WALK_F14_IMG,
-							WALK_F15_IMG
-};
 
-static ALLEGRO_BITMAP* wormJump[10];
-static ALLEGRO_BITMAP* wormWalk[15];
-static ALLEGRO_BITMAP* backSplash;
-
-static ALLEGRO_TIMER* timer;
-static ALLEGRO_DISPLAY* display;
-static ALLEGRO_EVENT_QUEUE* eventQueue;
-
-
-static void drawBackground();
-static void drawWorms(World* world);
-static Point posToAll(Point pos, unsigned int width, unsigned int height);
-
-
-bool initWorld()
+bool AllegroRes::initWorld()
 {
+
+	const char* jumpImgs[] = { JUMP_F1_IMG,
+								JUMP_F2_IMG,
+								JUMP_F3_IMG,
+								JUMP_F4_IMG,
+								JUMP_F5_IMG,
+								JUMP_F6_IMG,
+								JUMP_F7_IMG,
+								JUMP_F8_IMG,
+								JUMP_F9_IMG,
+								JUMP_F10_IMG
+	};
+
+	const char* walkImgs[] = { WALK_F1_IMG,
+								WALK_F2_IMG,
+								WALK_F3_IMG,
+								WALK_F4_IMG,
+								WALK_F5_IMG,
+								WALK_F6_IMG,
+								WALK_F7_IMG,
+								WALK_F8_IMG,
+								WALK_F9_IMG,
+								WALK_F10_IMG,
+								WALK_F11_IMG,
+								WALK_F12_IMG,
+								WALK_F13_IMG,
+								WALK_F14_IMG,
+								WALK_F15_IMG
+	};
+
 	if (!al_init()) {
 		return false;
 	}
@@ -166,7 +145,7 @@ bool initWorld()
 	return true;
 }
 
-void destroyWorld(int error)
+void AllegroRes::destroyWorld(int error)
 {
 	switch (error)
 	{
@@ -194,39 +173,22 @@ void destroyWorld(int error)
 }
 
 
-void drawWorld(World * world)
+void AllegroRes::drawWorld(World * world)
 {
 	al_clear_to_color(al_color_name("blue"));
-	
-	
-	auto start = std::chrono::system_clock::now();
-
 	drawBackground();
-
-	auto end = std::chrono::system_clock::now();
-	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-	std::cout << elapsed.count() << '\n';
-
 	drawWorms(world);
 	al_flip_display();
 }
 
 
-bool inRange(Point& point)   // ASUMIENDO QUE LOS BITMAPS PUEDEN TENER DIFERENTES SIZES
-{
-	if ((point.x > 701) && (point.x < 1212))   // FIX
-		return true;
-	else
-		return false;
-
-}
 
 
-static void drawBackground() {
+void AllegroRes::drawBackground() {
 	al_draw_bitmap(backSplash, 0, 0, 0);
 }
 
-static void drawWorms(World * world) {
+void AllegroRes::drawWorms(World * world) {
 	for (int i = 0; i < 2; i++)
 	{
 		if (world->worms[i].state != IDLE)
@@ -235,82 +197,26 @@ static void drawWorms(World * world) {
 			{
 				if (world->worms[i].state == START_MOVING_LEFT || world->worms[i].state == START_MOVING_RIGHT)
 				{
-					Point allPos = posToAll(world->worms[i].pos, al_get_bitmap_width(wormWalk[world->worms[i].bitmapIndex - 1]), al_get_bitmap_width(wormWalk[world->worms[i].bitmapIndex - 1]));
-					al_draw_bitmap(wormWalk[0], allPos.x, allPos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
-					//std::cout << "START_MOVING_LEFT" << std::endl;
+					al_draw_bitmap(wormWalk[0], world->worms[i].pos.x, world->worms[i].pos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
+
 				}
 				else if (world->worms[i].frameCounter > 5 )
 				{
-					Point allPos = posToAll( world->worms[i].pos, al_get_bitmap_width(wormWalk[world->worms[i].bitmapIndex - 1]), al_get_bitmap_width(wormWalk[world->worms[i].bitmapIndex - 1]));
-					al_draw_bitmap(wormWalk[world->worms[i].bitmapIndex - 1 ], allPos.x, allPos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
-					std::cout << "? = " << world->worms[i].bitmapIndex - 1   << std::endl;
+					al_draw_bitmap(wormWalk[world->worms[i].bitmapIndex - 1 ], world->worms[i].pos.x, world->worms[i].pos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
+
 				}
 			}
 			else
 			{
-				Point allPos = posToAll(world->worms[i].pos, al_get_bitmap_width(wormWalk[world->worms[i].bitmapIndex - 1]), al_get_bitmap_width(wormWalk[world->worms[i].bitmapIndex - 1]));
-				al_draw_bitmap(wormJump[world->worms[i].bitmapIndex - 1], allPos.x, allPos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
-				std::cout << "? = " << world->worms[i].bitmapIndex - 1 << std::endl;
-				std::cout << "X  = " << world->worms[i].pos.x - 1 << std::endl;
-				std::cout << "Y = " << world->worms[i].pos.y - 1 << std::endl;
+				al_draw_bitmap(wormJump[world->worms[i].bitmapIndex - 1], world->worms[i].pos.x, world->worms[i].pos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
+
 			}
 		}
 		else if (world->worms[i].state == IDLE)
 		{
-			Point allPos = posToAll(world->worms[i].pos, al_get_bitmap_width(wormJump[world->worms[i].bitmapIndex] ), al_get_bitmap_width(wormJump[world->worms[i].bitmapIndex]));
-			al_draw_bitmap(wormWalk[world->worms[i].bitmapIndex], allPos.x, allPos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
-			//std::cout << "IDLE" << std::endl;
+			al_draw_bitmap(wormWalk[world->worms[i].bitmapIndex], world->worms[i].pos.x, world->worms[i].pos.y, world->worms[i].direction == RIGHT ? ALLEGRO_FLIP_HORIZONTAL : 0);
+
 		}
 	}
 }
 
-static Point posToAll(Point pos, unsigned int width, unsigned int height) {
-
-	//pos.y = height;
-
-	return pos;
-}
-
-bool isEvent(void)
-{
-	//if (al_is_event_queue_empty(eventQueue))   // TODO
-	//	return false;
-	//else
-		return true;
-}
-
-void dispatch(World* world)
-{
-	ALLEGRO_EVENT event;
-
-	bool redraw = false;
-
-	if (al_get_next_event(eventQueue, &event))
-	{
-		switch (event.type)      //Se evalua el evento ocurrido y se actua acordemente
-		{                    
-		case ALLEGRO_EVENT_DISPLAY_CLOSE:
-			world->isRunning = false;
-			destroyWorld();
-			break;
-
-		case ALLEGRO_EVENT_KEY_DOWN:
-			world->startMoving(event.keyboard.keycode);
-			break;
-
-		case ALLEGRO_EVENT_KEY_UP:
-			world->stopMoving(event.keyboard.keycode);
-			break;
-
-		case ALLEGRO_EVENT_TIMER:
-			redraw = true;
-			break;
-		}
-	}
-	if (redraw && al_is_event_queue_empty(eventQueue))
-	{
-		redraw = false;
-		world->refresh();
-		drawWorld(world);
-	}
-}

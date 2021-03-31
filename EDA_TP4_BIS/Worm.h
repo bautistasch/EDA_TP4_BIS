@@ -12,9 +12,9 @@ typedef enum {RIGHT, LEFT} direction_t;
 
 class Worm {
 public:
-
-	Worm()
-	{
+	Worm() {
+		bitmapIndex = 0;
+		frameCounter = 0;
 		movementRepetitons = 0;
 	}
 	int bitmapIndex;
@@ -30,12 +30,11 @@ public:
 	void startJumping(void);
 	void stopJumping(void);
 	void upDate(void);
-	void setInitPos(void);
-	float get_X_InitPos(void);
-	float get_Y_initPos(void);
 private:
+
+	bool inRange(Point& point);
+	bool onAir(Point* pos);
 	int movementRepetitons;
-	Point initialPos;
 };
 
 #endif // _WORM_H
